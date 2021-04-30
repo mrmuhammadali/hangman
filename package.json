@@ -1,0 +1,13 @@
+{
+  "name": "polly",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Muhammad Ali",
+  "license": "MIT",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "axios": "^0.21.1"
+  }
+}
