@@ -1,5 +1,11 @@
 ## Hangman
 
+### Scripts:
+```sh
+yarn install // npm i
+yarn start // npm start
+```
+
 ### Game Requirements:
 1. User can guess one letter at a time
 2. User can have 7 wrong entries before the game is over
