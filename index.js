@@ -17,39 +17,33 @@ const guessLetter = async (letter, token, incorrectCount, dataset) => {
       letter,
       token,
     );
+    console.log(`Dataset size = ${dataset.length}`);
     console.log(
-      `Guessed Letter: ${letter} = ${correct}, incorrectCount = ${incorrectCount}`,
+      `Guessed Letter = ${letter} ~ ${correct}, Incorrect Count = ${incorrectCount}`,
     );
     console.log(`Current state: ${hangman}`);
+    console.log("------------------------------------------------");
 
     if (correct) {
       if (!hangman.includes("_")) {
         return true;
       }
-      const guessedIndices = hangman
-        .split("")
-        .reduce((final, hangmanChar, index) => {
-          if (hangmanChar === letter) {
-            return final.concat(index);
-          }
-          return final;
-        }, []);
-      const filteredDataset = dataset.filter((word) => {
-        return guessedIndices.every((index) => word[index] === letter);
-      });
+      const regex = new RegExp(hangman.replace(/_/g, "."));
+      const filteredDataset = dataset.filter((word) => word.match(regex));
       const frequentLetter = utils.getFrequentLetter(filteredDataset, hangman);
 
-      return await guessLetter(
+      return guessLetter(
         frequentLetter,
         updatedToken,
         incorrectCount,
         filteredDataset,
       );
     } else {
-      const filteredDataset = dataset.filter((word) => !word.includes(letter));
+      const regex = new RegExp(letter, "g");
+      const filteredDataset = dataset.filter((word) => !word.match(regex));
       const frequentLetter = utils.getFrequentLetter(filteredDataset, hangman);
 
-      return await guessLetter(
+      return guessLetter(
         frequentLetter,
         updatedToken,
         incorrectCount + 1,
